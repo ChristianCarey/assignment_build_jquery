@@ -146,8 +146,22 @@ function jQueryObject(collection){
     if (arguments.length < 2){
       return this.collection[0].getAttribute(attrName);
     } else {
-      
+      this.each(function(node){
+        node.setAttribute(attrName, value);
+      });
     }
+  };
+
+  this.html = function(value){
+    if (arguments.length < 1){
+      return this.collection[0].innerHTML
+    }
+    else{
+      this.each(function(node){
+        node.innerHTML = value;
+      })
+    }
+
   };
 }
 
