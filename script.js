@@ -146,7 +146,7 @@ function jQueryObject(collection){
     if (arguments.length < 2){
       return this.collection[0].getAttribute(attrName);
     } else {
-      
+
     }
   };
 }
@@ -172,4 +172,4 @@ var helper = {
       node.classList.remove(className);
   }
 }
-var $ = jQuery
+var $ = jQuery;
