@@ -71,14 +71,14 @@ function jQueryObject(collection){
   this.hasClass = function(className){
     var response = false;
     this.each(function(node){
-      node.classList.forEach(function(klass){
-        if (klass === className) {
-          response = true;
-        }
-      });
+      if (helper.hasClass(node, className)){
+        response = true
+        return true
+      }
     });
     return response;
   };
+
 
   this.addClass = function(className){
     this.each(function(node){
@@ -94,9 +94,46 @@ function jQueryObject(collection){
 
   this.toggleClass = function(className){
     this.each(function(node){
-      if(node.classList)
+      if(helper.hasClass(node, className)){
+        helper.removeClass(node, className)
+      }
+      else{
+        helper.addClass(node, className)
+      }
     });
   };
+
+  this.val = function(value){
+    if(arguments.length > 0){
+      
+
+    }
+    else{
+      return collection.idx(0).value
+    } 
+
+  }
 }
 
+var helper = {
+  
+  hasClass: function(node, className){
+    response = false
+    node.classList.forEach(function(klass){
+        if (klass === className) {
+          response = true;
+          return true
+        }
+    });
+    return response
+  }, 
+
+  addClass: function(node, className){
+      node.className += " " + className;
+  },
+
+  removeClass: function(node, className){
+      node.classList.remove(className);
+  }
+}
 var $ = jQuery
