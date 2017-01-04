@@ -31,23 +31,27 @@ SimpleObject = function(collection){
 }
 
 var jQuery = function(param){
-  var first_char = param[0],
-      response;
+  // var first_char = param[0],
+  //     response;
+  var response;
   if (param instanceof Object) {
     response = [param]
+  } else {
+    response = Array.prototype.slice.call( document.querySelectorAll(param) );
   }
-  else{  
-    if (first_char === ".") {
-      var htmlCollection = document.getElementsByClassName(param.slice(1));
-      response = Array.prototype.slice.call( htmlCollection );
-    } else if (first_char === "#") {
-      response = [document.getElementById(param.slice(1))];
-    } else {
-      var htmlCollection = document.getElementsByTagName(param);
-      response = Array.prototype.slice.call( htmlCollection );
-    }
 
-  }
+  // else{  
+  //   if (first_char === ".") {
+  //     var htmlCollection = document.getElementsByClassName(param.slice(1));
+  //     response = Array.prototype.slice.call( htmlCollection );
+  //   } else if (first_char === "#") {
+  //     response = [document.getElementById(param.slice(1))];
+  //   } else {
+  //     var htmlCollection = document.getElementsByTagName(param);
+  //     response = Array.prototype.slice.call( htmlCollection );
+  //   }
+
+  // }
   return new jQueryObject(response);
 }
 
