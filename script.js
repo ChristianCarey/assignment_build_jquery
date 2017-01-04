@@ -30,8 +30,31 @@ SimpleObject = function(collection){
 
 }
 
-var jQuery = function(parm){
-  return {
-    param: param
+var jQuery = function(param){
+  var first_char = param[0],
+      response;
+
+  if (first_char === ".") {
+    response = document.getElementsByClassName(param.slice(1));
+  } else if (first_char === "#") {
+    response = [document.getElementById(param.slice(1))];
+  } else {
+    response = document.getElementsByTagName(param);
+  }
+  return new jQueryObject(response);
+}
+
+function jQueryObject(collection){
+  this.collection = collection;
+  this.each = function(funct){
+    for(i = 0; i < this.collection.length; i++){
+      funct(this.collection[i], i)
+    }
+  };
+  this.length = function(){
+    return this.collection.length
+  };
+  this.eq = function(index){
+    return new jQueryObject([this.collection[index]])
   }
 }
