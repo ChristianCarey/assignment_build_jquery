@@ -105,14 +105,50 @@ function jQueryObject(collection){
 
   this.val = function(value){
     if(arguments.length > 0){
-      
-
+      this.each(function(node){
+        node.value = value;
+      });
     }
     else{
-      return collection.idx(0).value
+      return this.idx(0).value;
     } 
+  };
 
-  }
+  this.css = function(propName, value){
+    if(arguments.length < 2){
+      return this.collection[0].style[propName];
+    } else {
+      this.each(function(node){
+        node.style[propName] = value;
+      });
+    }
+  };
+
+  this.height = function(value){
+    if (arguments.length > 0){
+      this.css('height', value + "px");
+    } else {
+      string = this.css('height');
+      return string.substring(0, string.length - 2);
+    }
+  };
+
+  this.width = function(value){
+    if (arguments.length > 0){
+      this.css('width', value + "px");
+    } else {
+      string = this.css('width');
+      return string.substring(0, string.length - 2);
+    }
+  };
+
+  this.attr = function(attrName, value){
+    if (arguments.length < 2){
+      return this.collection[0].getAttribute(attrName);
+    } else {
+      
+    }
+  };
 }
 
 var helper = {
