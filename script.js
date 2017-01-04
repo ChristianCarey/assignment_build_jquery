@@ -54,23 +54,49 @@ function jQueryObject(collection){
   this.collection = collection;
   this.each = function(funct){
     for(i = 0; i < this.collection.length; i++){
-      funct(this.collection[i], i)
+      funct(this.collection[i], i);
     }
   };
   this.length = function(){
-    return this.collection.length
+    return this.collection.length;
   };
   this.eq = function(index){
-    return new jQueryObject([this.collection[index]])
+    return new jQueryObject([this.collection[index]]);
   };
 
   this.idx = function(index){
-    return collection[index]
+    return collection[index];
   };
 
-  this.hasClass = function(class){
-    response = false
-  }
+  this.hasClass = function(className){
+    var response = false;
+    this.each(function(node){
+      node.classList.forEach(function(klass){
+        if (klass === className) {
+          response = true;
+        }
+      });
+    });
+    return response;
+  };
+
+  this.addClass = function(className){
+    this.each(function(node){
+      node.className += " " + className;
+    });
+  };
+
+  this.removeClass = function(className){
+    this.each(function(node){
+      node.classList.remove(className);
+    });
+  };
+
+  this.toggleClass = function(className){
+    this.each(function(node){
+      if(node.classList)
+    });
+  };
 }
 
 var $ = jQuery
