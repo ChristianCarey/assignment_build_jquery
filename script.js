@@ -38,11 +38,13 @@ var jQuery = function(param){
   }
   else{  
     if (first_char === ".") {
-      response = document.getElementsByClassName(param.slice(1));
+      var htmlCollection = document.getElementsByClassName(param.slice(1));
+      response = Array.prototype.slice.call( htmlCollection );
     } else if (first_char === "#") {
       response = [document.getElementById(param.slice(1))];
     } else {
-      response = document.getElementsByTagName(param);
+      var htmlCollection = document.getElementsByTagName(param);
+      response = Array.prototype.slice.call( htmlCollection );
     }
 
   }
@@ -146,8 +148,22 @@ function jQueryObject(collection){
     if (arguments.length < 2){
       return this.collection[0].getAttribute(attrName);
     } else {
-
+      this.each(function(node){
+        node.setAttribute(attrName, value);
+      });
     }
+  };
+
+  this.html = function(value){
+    if (arguments.length < 1){
+      return this.collection[0].innerHTML
+    }
+    else{
+      this.each(function(node){
+        node.innerHTML = value;
+      })
+    }
+
   };
 }
 
