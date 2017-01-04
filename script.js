@@ -33,18 +33,24 @@ SimpleObject = function(collection){
 var jQuery = function(param){
   var first_char = param[0],
       response;
+  if (param instanceof Object) {
+    response = [param]
+  }
+  else{  
+    if (first_char === ".") {
+      response = document.getElementsByClassName(param.slice(1));
+    } else if (first_char === "#") {
+      response = [document.getElementById(param.slice(1))];
+    } else {
+      response = document.getElementsByTagName(param);
+    }
 
-  if (first_char === ".") {
-    response = document.getElementsByClassName(param.slice(1));
-  } else if (first_char === "#") {
-    response = [document.getElementById(param.slice(1))];
-  } else {
-    response = document.getElementsByTagName(param);
   }
   return new jQueryObject(response);
 }
 
 function jQueryObject(collection){
+
   this.collection = collection;
   this.each = function(funct){
     for(i = 0; i < this.collection.length; i++){
@@ -56,5 +62,15 @@ function jQueryObject(collection){
   };
   this.eq = function(index){
     return new jQueryObject([this.collection[index]])
+  };
+
+  this.idx = function(index){
+    return collection[index]
+  };
+
+  this.hasClass = function(class){
+    response = false
   }
 }
+
+var $ = jQuery
